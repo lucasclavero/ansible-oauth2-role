@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cd /opt/ && go/bin/oauth2_proxy \
+ --email-domain="madmobile.co" \
+ --upstream="http://{{ kibana_upstream }}:{{ kibana_port }}" \
+ --approval-prompt="auto" \
+ --redirect-url="http://{{ kibana_server_name }}" \
+ --cookie-secret=secretsecret \
+ --cookie-name="_oauth2_proxy" \
+ --cookie-secure=false \
+ --provider=google \
+ --client-id="{{ client_id_kibana }}" \
+ --client-secret="{{ client_secret_kibana }}"

@@ -1,0 +1,28 @@
+---
+
+- name: downlaod oauth2_proxy binary
+  shell: "/usr/local/go/bin/go get -u github.com/bitly/oauth2_proxy"
+
+
+
+- name: Create oauth2_proxy dir
+  file:
+    path: /etc/oauth2_proxy
+    state: directory 
+    mode: 0755
+
+- name: Set oauth2_proxy for all users
+  template: src=oauth2_proxy.j2 dest=/etc/oauth2_proxy/oauth2_proxy.sh mode=0777
+
+- name: Create upstart .conf file for oauth2_proxy.sh
+  template: src=oauth2.conf.j2 dest=/etc/init/oauth2.conf
+
+- name: Enable Oauth2 service
+  service: name=oauth2 enabled=yes
+  notify:
+    - Restart oauth2
+
+- name: Make sure Oauth2 service is started
+  service: 
+    name: oauth2
+    state: started

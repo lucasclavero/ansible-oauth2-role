@@ -1,0 +1,4 @@
+---
+exec_oauth_proxy: true
+GOROOT: /usr/local/go
+GOPATH: /opt/go

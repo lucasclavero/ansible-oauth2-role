@@ -1,0 +1,6 @@
+---
+
+- name: Restart oauth2
+  service: name=oauth2 state=restarted
+  become: yes
+  become_method: sudo
